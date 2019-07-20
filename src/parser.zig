@@ -36,8 +36,8 @@ pub fn parse(buf: [*]const u8) !Request {
         return ParseError.PartialRequest;
     }
 
-    var alloc = heap.DirectAllocator.init();
-    var headers_map = HeadersMap.init(&alloc.allocator);
+    var alloc = heap.direct_allocator;
+    var headers_map = HeadersMap.init(alloc);
 
     for (headers[0..num_headers]) |h| {
         _ = try headers_map.put(h.name[0..h.name_len], h.value[0..h.value_len]);
